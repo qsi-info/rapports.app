@@ -71,16 +71,16 @@ angular
       });
     });
     
+
     $rootScope.$on('oauth:logout', function() {
       if ('ActiveXObject' in window) {
         document.execCommand('ClearAuthenticationCache', false);
-        $rootScope.profile = {};
-        $rootScope.app = {};
-        $cookieStore.remove('profile');
-        $cookieStore.remove('app');
-        $cookieStore.remove('API_SITE');
       }
-
+      $rootScope.profile = {};
+      $rootScope.app = {};
+      $cookieStore.remove('profile');
+      $cookieStore.remove('app');
+      $cookieStore.remove('API_SITE');
     });      
 
   });
