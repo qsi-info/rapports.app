@@ -17,29 +17,56 @@ angular
   ])
   .config(function ($routeProvider, $locationProvider) {
 
+    // Essential for oauth2
     $locationProvider.html5Mode(true).hashPrefix('!'); 
 
 
 
+
+    // Routing
     $routeProvider
-      .when('/', {
-        templateUrl: 'views/main.html',
-        controller: 'MainCtrl'
-      })
-      .otherwise({
-        redirectTo: '/'
-      });
+
+    // Home
+    .when('/', {
+      templateUrl: 'views/main.html',
+      controller: 'MainCtrl'
+    })
+
+    // Otherwise
+    .otherwise({
+      redirectTo: '/'
+    });
+
+
+
+
   })
-  .run(function ($rootScope, $http, AccessToken) {
+
+
+
+  // This function setup authentification, the profile and the Bearer header.
+  .run(function ($rootScope, $http, $cookieStore, AccessToken) {
 
     $rootScope.API_SITE = $('oauth').attr('site');
+    $cookieStore.put('API_SITE', $('oauth').attr('site'));
+
+    if ($cookieStore.get('app')) {
+      $rootScope.app = $cookieStore.get('app');
+    }
+
+    if ($cookieStore.get('profile')) {
+      $rootScope.profile = $cookieStore.get('profile');
+    }
+
 
     $rootScope.$on('oauth:login', function () {
       $http.defaults.headers.common.Authorization = 'Bearer ' + AccessToken.get().access_token;
       $http.get($rootScope.API_SITE + '/api/me').success(function (profile) {
+        $cookieStore.put('profile', profile);
         $rootScope.profile = profile;
       });
       $http.get($rootScope.API_SITE + '/api/info').success(function (client) {
+        $cookieStore.put('app', client);
         $rootScope.app = client;
       });
     });
@@ -49,6 +76,9 @@ angular
         document.execCommand('ClearAuthenticationCache', false);
         $rootScope.profile = {};
         $rootScope.app = {};
+        $cookieStore.remove('profile');
+        $cookieStore.remove('app');
+        $cookieStore.remove('API_SITE');
       }
 
     });      
