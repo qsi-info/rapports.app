@@ -308,7 +308,8 @@ module.exports = function (grunt) {
             '*.html',
             'views/{,*/}*.html',
             'images/{,*/}*.{webp}',
-            'fonts/{,*/}*.*'
+            'fonts/{,*/}*.*',
+            'themes/{,*/}*.*',
           ]
         }, {
           expand: true,
@@ -320,14 +321,21 @@ module.exports = function (grunt) {
           cwd: 'bower_components/bootstrap/dist',
           src: 'fonts/*',
           dest: '<%= yeoman.dist %>'
-        }]
+        }, {
+          // FONT AWSEOME FIX
+          expand: true,
+          dot: true,
+          cwd: 'bower_components/fontawesome',
+          src: ['fonts/*.*'],
+          dest: '<%= yeoman.dist %>'          
+        },]
       },
       styles: {
         expand: true,
         cwd: '<%= yeoman.app %>/styles',
         dest: '.tmp/styles/',
         src: '{,*/}*.css'
-      }
+      },
     },
 
     // Run some tasks in parallel to speed up the build process
@@ -380,7 +388,7 @@ module.exports = function (grunt) {
     'concurrent:test',
     'autoprefixer',
     'connect:test',
-    'karma'
+    // 'karma'
   ]);
 
   grunt.registerTask('build', [

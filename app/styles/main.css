@@ -1,3 +1,15 @@
-body {
-  margin-top: 100px;
+
+/*
+ * Use body.full_page for all css rules related to the full page application aspect
+ */
+body.full_page {
+  margin-top: 75px;
+}
+
+/*
+ * Use body.aspect for all css rules related to the webpart application aspect
+ */
+body.webpart {
+	margin: 0px;
+	margin-top: 30px;
 }
