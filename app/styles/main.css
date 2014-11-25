@@ -13,3 +13,9 @@ body.webpart {
 	margin: 0px;
 	margin-top: 30px;
 }
+
+
+
+.report-choice.selected i {
+	color: black !important;
+}

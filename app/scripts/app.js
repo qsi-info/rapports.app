@@ -15,7 +15,8 @@ angular
     'ngResource',
     'ngRoute',
     // 'angular-loading-bar', 
-    'cfp.loadingBar' // use instead for service usage @doc https://github.com/chieffancypants/angular-loading-bar
+    'cfp.loadingBar', // use instead for service usage @doc https://github.com/chieffancypants/angular-loading-bar
+    'sticky'
   ])
   .config(function ($routeProvider) {
 
@@ -36,9 +37,24 @@ angular
     })    
 
     // Home
+    // .when('/', {
+    //   templateUrl: 'views/main.html',
+    //   controller: 'MainCtrl'
+    // })
+
+    .when('/report/new', {
+      templateUrl: 'views/report.new.html',
+      controller: 'NewReportController',
+    })
+
+    .when('/report/:id', {
+      templateUrl: 'views/report.sections.html',
+      controller: 'ReportController',
+    })
+
     .when('/', {
-      templateUrl: 'views/main.html',
-      controller: 'MainCtrl'
+      templateUrl: 'views/myreport.html',
+      controller: 'MyReportController',
     })
 
     // Otherwise
@@ -78,14 +94,16 @@ angular
     $rootScope.API_SITE = $('oauth').attr('site');
     $cookieStore.put('API_SITE', $('oauth').attr('site'));
 
+    if ($cookieStore.get('AccessToken')) {
+      $http.defaults.headers.common.Authorization = 'Bearer ' + $cookieStore.get('AccessToken');
+    }
+
     if ($cookieStore.get('app')) {
       $rootScope.app = $cookieStore.get('app');
-      console.log($rootScope.app);
     }
 
     if ($cookieStore.get('profile')) {
       $rootScope.profile = $cookieStore.get('profile');
-      console.log($rootScope.profile);
     }
 
     if ($cookieStore.get('theme')) {
@@ -95,6 +113,7 @@ angular
 
     $rootScope.$on('oauth:login', function () {
       cfpLoadingBar.start();
+      $cookieStore.put('AccessToken', AccessToken.get().access_token);
       $http.defaults.headers.common.Authorization = 'Bearer ' + AccessToken.get().access_token;
       $http.get($rootScope.API_SITE + '/api/me').success(function (profile) {
         $cookieStore.put('profile', profile);
@@ -129,6 +148,7 @@ angular
 
 
   });
+
 
 
 

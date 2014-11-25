@@ -10,9 +10,11 @@
     <!-- bower:css -->
     <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css" />
     <link rel="stylesheet" href="bower_components/angular-loading-bar/build/loading-bar.css" />
+    <link rel="stylesheet" href="bower_components/fontawesome/css/font-awesome.css" />
     <!-- endbower -->
     <!-- endbuild -->
     <!-- build:css(.tmp) styles/main.css -->
+    <link rel="stylesheet" type="text/css" href="styles/metro.css"/>
     <link rel="stylesheet" type="text/css" href="styles/main.css"/>
     <!-- endbuild -->
   </head>
@@ -45,7 +47,7 @@
 
           <oauth
             site="http://localhost:1337"
-            client-id="uodiwhpyyayfl5m0t4i489398xcs4xwh"
+            client-id="9xke8281gh6gfpiyiulnim3r1u3f9rbw"
             redirect-uri="http://localhost:9000"
             template="views/templates/oauth.custom.html"        
             scope="public">
@@ -79,6 +81,8 @@
     <script src="bower_components/ngstorage/ngStorage.js"></script>
     <script src="bower_components/oauth-ng/dist/oauth-ng.js"></script>
     <script src="bower_components/angular-loading-bar/build/loading-bar.js"></script>
+    <script src="bower_components/matchmedia/matchMedia.js"></script>
+    <script src="bower_components/ngSticky/sticky.js"></script>
     <!-- endbower -->
     <!-- endbuild -->
 
@@ -86,7 +90,12 @@
     <!-- build:js({.tmp,app}) scripts/scripts.js -->
     <script src="scripts/app.js"></script>
     <script src="scripts/services/item.js"></script>
+    <script src="scripts/services/QuarterReport.js"></script>
+    <script src="scripts/services/QuarterReportComment.js"></script>
     <script src="scripts/controllers/main.js"></script>
+    <script src="scripts/controllers/NewReportController.js"></script>
+    <script src="scripts/controllers/ReportController.js"></script>
+    <script src="scripts/controllers/MyReportController.js"></script>
     <!-- endbuild -->
 
 </body>
