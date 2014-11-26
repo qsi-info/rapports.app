@@ -10,10 +10,10 @@
 var app = angular.module('client1App');
 
 
-app.controller('MyReportController', function ($scope, $rootScope, QuarterReport) {
+app.controller('MyReportController', function ($scope, $location, $rootScope, QuarterReport) {
 
 	function init () {
-		console.log($rootScope.profile);
+		
 		QuarterReport.query({ createdBy: $rootScope.profile.account }, function (reports) {
 			$scope.reports = reports;
 		});
@@ -21,5 +21,9 @@ app.controller('MyReportController', function ($scope, $rootScope, QuarterReport
 
 	init();
 
+
+	$scope.go = function (path) {
+		$location.path(path);
+	};
 
 });

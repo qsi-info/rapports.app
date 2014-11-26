@@ -36,11 +36,11 @@ angular
       }
     })    
 
-    // Home
-    // .when('/', {
-    //   templateUrl: 'views/main.html',
-    //   controller: 'MainCtrl'
-    // })
+    //Home
+    .when('/', {
+      templateUrl: 'views/main.html',
+      controller: 'MainCtrl'
+    })
 
     .when('/report/new', {
       templateUrl: 'views/report.new.html',
@@ -52,7 +52,7 @@ angular
       controller: 'ReportController',
     })
 
-    .when('/', {
+    .when('/myreport', {
       templateUrl: 'views/myreport.html',
       controller: 'MyReportController',
     })

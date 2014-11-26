@@ -10,13 +10,15 @@
 var app = angular.module('client1App');
 
 
-app.controller('ReportController', function ($scope, $routeParams, QuarterReport, QuarterReportComment) {
+app.controller('ReportController', function ($scope, $routeParams, cfpLoadingBar, QuarterReport, QuarterReportComment) {
 
 	function init () {
+		cfpLoadingBar.start();
 		QuarterReport.get({ id: $routeParams.id }, function (report) {
 			$scope.report = report;
 			QuarterReportComment.query({ report: report.id }, function (comments) {
 				$scope.comments = comments;
+				cfpLoadingBar.complete();
 			});
 		});
 		$scope.sections = [
@@ -50,6 +52,7 @@ app.controller('ReportController', function ($scope, $routeParams, QuarterReport
 		if ($scope.input[section] === '') {
 			return window.alert('Vous devez entrez du texte');
 		}
+		cfpLoadingBar.start();
 		var comment = new QuarterReportComment();
 		comment.text = $scope.input[section];
 		comment.section = section;
@@ -58,24 +61,29 @@ app.controller('ReportController', function ($scope, $routeParams, QuarterReport
 			$scope.comments.push(savedComment);
 			$scope.input[section] = '';
 			document.getElementById(section).focus();
+			cfpLoadingBar.complete();
 		});
 	};
 
 
 	$scope.deleteComment = function (comment) {
 		if (window.confirm('Etes vous certain de vouloir supprimer cet élément?')) {
+			cfpLoadingBar.start();
 			QuarterReportComment.delete({ id: comment.id }, function () {
 				$scope.comments.splice($scope.comments.indexOf(comment), 1);
+				cfpLoadingBar.complete();
 			});
 		}
 	};
 
 
 	$scope.editComment = function (comment) {
+		cfpLoadingBar.start();
 		QuarterReportComment.delete({ id: comment.id }, function (deleteElem) {
 			$scope.comments.splice($scope.comments.indexOf(comment), 1);
 			$scope.input[deleteElem.section] = deleteElem.text;
 			document.getElementById(deleteElem.section).focus();
+			cfpLoadingBar.complete();
 		});
 	};
 

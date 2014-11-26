@@ -11,7 +11,7 @@ body.full_page {
  * Use body.aspect for all css rules related to the webpart application aspect
  */
 body.webpart {
-	margin: 0px;
+	margin: 10px;
 	margin-top: 30px;
 }
 
@@ -19,4 +19,20 @@ body.webpart {
 
 .report-choice.selected i {
 	color: black !important;
+}
+
+
+
+#myReport tbody td {
+	cursor: pointer;
+}
+
+
+
+.tile-status .name {
+	font-size: 10px !important;
+	margin-right: 0px !important;
+	margin-top: 10px !important;
+	margin-left: 5px !important;
+	padding: 0px;
 }
