@@ -47,7 +47,7 @@ app.controller('ReportController', function ($scope, $routeParams, QuarterReport
 
 
 	$scope.addComment = function (section) {
-		if ($scope.input[section] == '') {
+		if ($scope.input[section] === '') {
 			return window.alert('Vous devez entrez du texte');
 		}
 		var comment = new QuarterReportComment();

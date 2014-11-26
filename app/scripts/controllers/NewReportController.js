@@ -30,7 +30,7 @@ app.controller('NewReportController', function ($scope, $location, QuarterReport
 	};
 
 	$scope.setReportGroup = function (group) {
-		$scope.report.group = group;
+		$scope.report.groupId = group;
 	};
 
 	$scope.createReport = function () {
@@ -42,7 +42,7 @@ app.controller('NewReportController', function ($scope, $location, QuarterReport
 			return window.alert('Veuillez choisir une periode');			
 		}
 
-		if (!$scope.report.group) {
+		if (!$scope.report.groupId) {
 			return window.alert('Veuillez choisir un groupe');			
 		}
 
